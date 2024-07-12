@@ -1,0 +1,14 @@
+.card {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    flex-direction: column;  /* Adjust as necessary */
+    height: 90vh;           /* Full viewport height */
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 30px;
+  }
+  .card img {
+    max-width: 100%; /* Ensure image doesn't exceed parent width */
+    margin-top: 10px; /* Adjust as needed for spacing */
+  }
+  

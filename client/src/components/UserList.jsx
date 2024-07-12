@@ -1,13 +1,11 @@
-// UserList.js
 import React from 'react';
+import '../Userlist.css';
 
-const UserList = ({ names }) => (
+
+const UserList = ({ artistInfo }) => (
   <div className="card">
-    <p>
-      {names.map((name, index) => (
-        <span key={index}>{name} </span>
-      ))}
-    </p>
+    <p>{artistInfo.name}</p>
+    <img src={artistInfo.cover} />
   </div>
 );
 
