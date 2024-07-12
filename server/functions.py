@@ -1,14 +1,35 @@
 import requests
+from flask import jsonify
 from requests import post, get
 from dotenv import load_dotenv
 import os
 import base64
-
+import string
+import random
 # Load environment variables
 load_dotenv()
 CLIENTID = os.getenv("CLIENTID")
 SECRET = os.getenv("SECRET")
 REDIRECT_URI = 'http://127.0.0.1:8080/callback'
+def generate_random_string(length):
+    letters_and_digits = string.ascii_letters + string.digits
+    return ''.join(random.choice(letters_and_digits) for i in range(length))
+def exchange_code_for_token(code):
+    url = 'https://accounts.spotify.com/api/token'
+    headers = {
+        'Authorization': 'Basic ' + base64.b64encode(f"{CLIENTID}:{SECRET}".encode('utf-8')).decode('utf-8')
+    }
+    data = {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': REDIRECT_URI
+    }
+    response = requests.post(url, headers=headers, data=data)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Failed to exchange code for token: {response.status_code} {response.text}")
+        return None
 
 def get_token():
     auth_string = CLIENTID + ":" + SECRET
