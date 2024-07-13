@@ -1,5 +1,5 @@
 import requests
-from flask import jsonify
+from flask import jsonify, session
 from requests import post, get
 from dotenv import load_dotenv
 import os
@@ -30,7 +30,16 @@ def exchange_code_for_token(code):
     else:
         print(f"Failed to exchange code for token: {response.status_code} {response.text}")
         return None
-
+def get_current_playing(token):
+    url = "https://api.spotify.com/v1/me/player/currently-playing"
+    headers = get_auth_header(token)
+    response = requests.get(url, headers=headers)
+    
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error fetching currently playing data: {response.status_code} {response.text}")
+        return None
 def get_token():
     auth_string = CLIENTID + ":" + SECRET
     auth_bytes = auth_string.encode("utf-8")
@@ -56,8 +65,7 @@ def get_token():
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
-def currentlyPlaying(token):
-    return
+
 
 
 def get_artist(token, artist_name):

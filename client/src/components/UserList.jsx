@@ -4,8 +4,8 @@ import '../Userlist.css';
 
 const UserList = ({ artistInfo }) => (
   <div className="card">
-    <p>{artistInfo.name}</p>
-    <img src={artistInfo.cover} />
+    <p>{artistInfo.artist}</p>
+    <img src={artistInfo.album} />
   </div>
 );
 
