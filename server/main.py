@@ -13,6 +13,7 @@ SECRET = os.getenv("SECRET")
 REDIRECT_URI = 'http://127.0.0.1:8080/callback'
 
 @app.route("/api/login", methods=['GET'])
+@cross_origin(supports_credentials=True)
 def login():
     state = generate_random_string(16)
     scope = 'user-read-currently-playing user-read-email'
@@ -35,7 +36,9 @@ def callback():
         access_token = token_response['access_token']
         # Optionally, store access_token in session or database
         session['access_token'] = access_token
-        return jsonify({"access_token": access_token}), 200
+        response =  jsonify({"access_token": access_token}), 200
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     else:
         error_message = token_response.get('error', 'Unknown error') if token_response else 'Failed to retrieve access token'
         return jsonify({"error": error_message}), 400
@@ -43,7 +46,7 @@ def callback():
 
 
 @app.route('/api/currently_playing', methods=['GET', 'POST'])
-@cross_origin(supports_credentials=True)
+@cross_origin(methods=['GET', 'POST'], supports_credentials=True)
 def currently_playing():
     access_token = session.get('access_token')
     if not access_token:
@@ -55,15 +58,16 @@ def currently_playing():
         albumcover = currently_playing_data["item"]["album"]["images"][0]["url"]
         artistname = currently_playing_data["item"]["album"]["artists"][0]["name"]
         songname = currently_playing_data["item"]["name"]
-        
-        return jsonify({"albumname": albumname, "albumcover": albumcover, "artistname": artistname, "songname": songname}), 200
+        response = jsonify({"albumname": albumname, "albumcover": albumcover, "artistname": artistname, "songname": songname}), 200
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response 
     else:
         return jsonify({"error": "Failed to fetch currently playing data"}), 400
 
 @app.route("/api/access_token", methods=['GET'])
 def access_token():
     token = session.get('access_token')
-    return jsonify({"key": "hELLO"})
+    return jsonify({"key": token})
 @app.route("/api/users", methods=['GET'])
 def users():
     artist_info = test_get_artist("Kanye")
