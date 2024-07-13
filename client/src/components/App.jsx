@@ -8,7 +8,7 @@ function App() {
   const [accessToken, setAccessToken] = useState('');
   const fetchAPI = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8080/api/users', {
+      const response = await fetch('http://127.0.0.1:8080/api/currently_playing', {
         method: 'GET',
         credentials: 'include', // Include cookies in the request
         mode: 'cors'
