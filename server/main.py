@@ -1,12 +1,13 @@
 from flask import Flask, jsonify, redirect, request, session
-from flask_cors import CORS
+import requests
+from flask_cors import CORS, cross_origin
 import datetime
 from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token
 import os 
 import urllib.parse
 # Initialize Flask application
 app = Flask(__name__)
-CORS(app, origins="*")  # Enable CORS for all origins
+CORS(app, supports_credentials=True, origins="*")  # Enable CORS for all origins
 app.secret_key= os.getenv("KEY")
 CLIENTID = os.getenv("CLIENTID")
 SECRET = os.getenv("SECRET")
@@ -41,9 +42,12 @@ def callback():
         return jsonify({"error": error_message}), 400
     
 @app.route('/api/currently_playing')
+@cross_origin(supports_credentials=True)
 def currently_playing():
-    access_token = session.get('access_token')
-    if not access_token:
+    response = requests.get('http://localhost:8080/api/access_token')
+    data = response.json()
+    print(data)
+    """if not access_token:
         return jsonify({"error": "No access token available"}), 401
 
     currently_playing_data = get_current_playing(access_token)
@@ -54,11 +58,12 @@ def currently_playing():
         songname = currently_playing_data["item"]["name"]
         return jsonify({"albumname": albumname, "albumcover": albumcover, "artistname": artistname, "songname": songname}), 200
     else:
-        return jsonify({"error": "Failed to fetch currently playing data"}), 400
+        return jsonify({"error": "Failed to fetch currently playing data"}), 400"""
 
 @app.route("/api/access_token", methods=['GET'])
 def access_token():
     token = session.get('access_token')
+    print(token)
     return jsonify({"key": token})
 @app.route("/api/users", methods=['GET'])
 def users():
