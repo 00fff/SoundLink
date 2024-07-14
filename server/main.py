@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, redirect, request, session
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 from flask_cors import CORS, cross_origin
 import datetime
 from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token
@@ -8,11 +10,29 @@ import urllib.parse
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins="*")  # Enable CORS for all origins
 app.secret_key= os.getenv("KEY")
-CLIENTID = os.getenv("CLIENTID")
-SECRET = os.getenv("SECRET")
-REDIRECT_URI = 'http://127.0.0.1:8080/callback'
+SPOTIPY_CLIENT_ID = os.getenv("CLIENTID")
+SPOTIPY_CLIENT_SECRET = os.getenv("SECRET")
+SPOTIPY_REDIRECT_URI = 'http://127.0.0.1:8080/callback'
+scope = "user-library-read user-read-currently-playing user-read-email"
+auth_manager = SpotifyClientCredentials()
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
-@app.route("/api/login", methods=['GET'])
+
+
+@app.route("/api/getCurrentSong", methods=["GET", "POST"])
+def getCurrentSong():
+    currently_playing_data  = sp.current_user_playing_track()
+    if currently_playing_data and currently_playing_data['is_playing']:
+        albumname = currently_playing_data["item"]["album"]["name"]
+        albumcover = currently_playing_data["item"]["album"]["images"][0]["url"]
+        artistname = currently_playing_data["item"]["artists"][0]["name"]
+        songname = currently_playing_data["item"]["name"]
+
+        return jsonify({"albumname": albumname, "albumcover": albumcover, "artistname": artistname, "songname": songname}), 200
+    else:
+        return jsonify({"error": "No track is currently playing"}), 400
+
+"""@app.route("/api/login", methods=['GET'])
 @cross_origin(supports_credentials=True)
 def login():
     state = generate_random_string(16)
@@ -71,7 +91,7 @@ def access_token():
 @app.route("/api/users", methods=['GET'])
 def users():
     artist_info = test_get_artist("Kanye")
-    return jsonify(artist_info)
+    return jsonify(artist_info)"""
     
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
