@@ -45,7 +45,13 @@ function App() {
     }
   };
   useEffect(() => {
-    fetchAPI();
+    // Polling interval
+    const interval = setInterval(() => {
+      fetchAPI();
+    }, 5000);
+  
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
