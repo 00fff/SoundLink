@@ -20,6 +20,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
 
 @app.route("/api/getCurrentSong", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
 def getCurrentSong():
     currently_playing_data  = sp.current_user_playing_track()
     if currently_playing_data and currently_playing_data['is_playing']:
@@ -31,7 +32,12 @@ def getCurrentSong():
         return jsonify({"albumname": albumname, "albumcover": albumcover, "artistname": artistname, "songname": songname}), 200
     else:
         return jsonify({"error": "No track is currently playing"}), 400
-
+    
+@app.route("/api/check", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def check():
+    return {"name": "harith"}
+   
 """@app.route("/api/login", methods=['GET'])
 @cross_origin(supports_credentials=True)
 def login():
