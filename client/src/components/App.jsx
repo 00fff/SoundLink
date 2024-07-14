@@ -15,7 +15,7 @@ function App() {
       });
       
       console.log(response.data); // Log the response data directly after setting state
-      const key = response.data
+      setAccessToken(response.data)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
