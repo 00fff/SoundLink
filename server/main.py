@@ -5,6 +5,7 @@ from flask_cors import CORS, cross_origin
 import datetime
 from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token
 import os 
+import json
 import urllib.parse
 # Initialize Flask application
 app = Flask(__name__)
@@ -17,7 +18,13 @@ scope = "user-library-read user-read-currently-playing user-read-email"
 auth_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
-
+def read_cache():
+    try:
+        with open('.cache', 'r') as cache_file:
+            data = json.load(cache_file)
+            return data
+    except FileNotFoundError:
+        return {}
 
 @app.route("/api/getCurrentSong", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
@@ -36,7 +43,9 @@ def getCurrentSong():
 @app.route("/api/check", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def check():
-    return {"name": "harith"}
+     data = read_cache()
+     data = data.get("access_token")
+     return jsonify(data)
    
 """@app.route("/api/login", methods=['GET'])
 @cross_origin(supports_credentials=True)

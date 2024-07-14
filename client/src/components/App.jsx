@@ -13,7 +13,9 @@ function App() {
         credentials: 'include', // Include cookies in the request
         mode: 'cors'
       });
+      
       console.log(response.data); // Log the response data directly after setting state
+      const key = response.data
     } catch (error) {
       console.error('Error fetching data:', error);
     }
