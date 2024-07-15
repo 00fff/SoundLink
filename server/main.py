@@ -37,7 +37,6 @@ def getCurrentSong():
         artistname = currently_playing_data["item"]["artists"][0]["name"]
         songname = currently_playing_data["item"]["name"]
         color = getColor(albumcover)
-        print(color)
         return jsonify({"albumname": albumname, "albumcover": albumcover, "artistname": artistname, "songname": songname, "color": color}), 200
         
     else:

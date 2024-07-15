@@ -1,14 +1,36 @@
+/* Main container styling */
 .card {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
-    flex-direction: column;  /* Adjust as necessary */
-    height: 90vh;           /* Full viewport height */
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 30px;
-  }
-  .card img {
-    max-width: 100%; /* Ensure image doesn't exceed parent width */
-    margin-top: 10px; /* Adjust as needed for spacing */
-  }
-  
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  flex-direction: column; /* Arrange children in a column */
+  height: 90vh; /* Full viewport height */
+  font-family: "Lucida Console", "Courier New", monospace; /* Font family */
+  font-size: 30px; /* Font size */
+  padding: 20px; /* Adjust padding around the container */
+}
+
+/* Container for image and text */
+.content {
+  display: flex; /* Use flexbox layout */
+  align-items: center; /* Center items vertically */
+  width: 100%; /* Ensure content stretches to full width */
+}
+
+/* Styling for the album cover image */
+.album-cover {
+  max-width: 200px; /* Maximum width of the image */
+  margin-right: 20px; /* Margin between the image and text */
+}
+
+/* Styling for the text content */
+.text {
+  color: white; /* Text color */
+  display: flex; /* Use flexbox layout */
+  flex-direction: column; /* Stack paragraphs vertically */
+}
+
+/* Styling for paragraphs within the text content */
+.text p {
+  margin: 5px 0; /* Adjust vertical spacing between paragraphs */
+}
