@@ -5,7 +5,8 @@ import UserList from "./UserList"
 function App() {
   const [artistInfo, setArtistInfo] = useState([]);
   const [accessToken, setAccessToken] = useState();
-  const [currentlyPlaying, setCurrentlyPlaying] = useState();
+  const [lastPlayed, setLastPlayed] = useState([]);
+
 
   useEffect(() => {
     console.log(accessToken); // This will log the updated accessToken whenever it changes
@@ -21,7 +22,6 @@ function App() {
 
       const token = response.data;
       setAccessToken(token);
-      console.log(token); // Log the token directly, this will work
 
       if (token) {
         try {

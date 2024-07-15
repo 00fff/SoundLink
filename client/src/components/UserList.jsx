@@ -3,8 +3,9 @@ import '../Userlist.css';
 
 
 const UserList = ({ artistInfo }) => (
-  <div className="card">
+  <div style={{ backgroundColor: `rgb(${artistInfo.color})` }} className="card">
     <p>{artistInfo.songname}</p>
+    {console.log(artistInfo.color)}
     <img src={artistInfo.albumcover} />
   </div>
 );

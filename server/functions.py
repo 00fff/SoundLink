@@ -1,7 +1,10 @@
 import requests
 from flask import jsonify, session
 from requests import post, get
+from io import BytesIO
 from dotenv import load_dotenv
+from PIL import Image
+from colorthief import ColorThief
 import os
 import base64
 import string
@@ -11,6 +14,26 @@ load_dotenv()
 CLIENTID = os.getenv("CLIENTID")
 SECRET = os.getenv("SECRET")
 REDIRECT_URI = 'http://127.0.0.1:8080/callback'
+
+def getColor(image_url):
+    response = requests.get(image_url)
+    response.raise_for_status()  # Ensure the request was successful
+    image_data = ColorThief(BytesIO(response.content))
+    dominant_color = image_data.get_color(quality=1)
+    return dominant_color
+
+
+
+
+
+
+
+
+
+
+
+
+
 def generate_random_string(length):
     letters_and_digits = string.ascii_letters + string.digits
     return ''.join(random.choice(letters_and_digits) for i in range(length))
