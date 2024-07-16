@@ -12,6 +12,7 @@
 
 /* Container for image and text */
 .content {
+
   display: flex; /* Use flexbox layout */
   align-items: center; /* Center items vertically */
   width: 100%; /* Ensure content stretches to full width */
@@ -25,6 +26,8 @@
 
 /* Styling for the text content */
 .text {
+  
+ /* Add padding for spacing */
   color: white; /* Text color */
   display: flex; /* Use flexbox layout */
   flex-direction: column; /* Stack paragraphs vertically */
@@ -35,5 +38,25 @@
   margin: 5px 0; /* Adjust vertical spacing between paragraphs */
 }
 .control-buttons {
-  bottom: 100%;
+  background-color: transparent;
+  padding: 15px;
+  right: 175px;
+  top: 310px;
+  position: relative;
+}
+.skipbuttons {
+  transition-duration: 0.4s; /* Smooth transition */
+  background-color: #1DB954; /* Green background */
+  padding: 15px 30px; /* Padding around the buttons */
+  margin: 10px; /* Margin between buttons */
+  border-radius: 100px; /* Rounded corners */
+  outline: none; /* Remove default outline */
+  border: 2px solid #000000; /* Black border */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Hover effect for skip buttons */
+.skipbuttons:hover {
+  background-color: #006925; /* Darker green on hover */
+  color: white;
 }

@@ -33,11 +33,11 @@ const UserList = ({ artistInfo }) => {
   return (
     <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})` }}>
       <div className="content">
-        <div className="control-buttons">
-        <button onClick={lastSong}><ArrowBackIosNewIcon /></button>
-        <button onClick={nextSong}><ArrowForwardIosIcon /></button>
-        </div> 
         <img src={artistInfo.albumcover} alt="Album Cover" className="album-cover" />
+        <div className="control-buttons">
+        <button className="skipbuttons" onClick={lastSong}><ArrowBackIosNewIcon /></button>
+        <button className="skipbuttons" onClick={nextSong}><ArrowForwardIosIcon /></button>
+        </div> 
         <div className="text">
           <p>{artistInfo.songname}</p>
           <p>{artistInfo.artistname}</p>
