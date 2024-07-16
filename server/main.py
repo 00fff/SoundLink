@@ -16,7 +16,15 @@ SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
 SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
 SPOTIPY_REDIRECT_URI = 'http://127.0.0.1:8080/callback'
 scope = "user-library-read user-read-currently-playing user-read-email"
-auth_manager = SpotifyClientCredentials()
+
+# Initialize Spotify OAuth object
+auth_manager = SpotifyOAuth(
+    client_id=SPOTIPY_CLIENT_ID,
+    client_secret=SPOTIPY_CLIENT_SECRET,
+    redirect_uri=SPOTIPY_REDIRECT_URI,
+    scope=scope
+)
+
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
 def read_cache():
@@ -41,7 +49,21 @@ def getCurrentSong():
         
     else:
         return jsonify({"error": "No track is currently playing"}), 400
-    
+
+@app.route("/api/next_song", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def NextSong():
+    sp.next_track()  # Skips to the next track
+    return jsonify({"message": "Skipped to the next song"}), 200
+
+@app.route("/api/last_song", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def LastSong():
+    sp.previous_track()
+    return jsonify({"message": "Skipped to the previous song"}), 200
+
+
+
 @app.route("/api/check", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def check():
