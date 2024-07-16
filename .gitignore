@@ -1,5 +1,5 @@
 # Ignore virtual environments
 venv/
 .env
-venv/
+server/
 .cache
