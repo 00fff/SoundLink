@@ -45,14 +45,16 @@
 
 .sidebar-links .links {
     
-    margin-top: 100px;
-    margin-bottom: 100px; /* Adjust as needed */
+    margin-top: 10px;
+    margin-bottom: 10px; /* Adjust as needed */
 }
 .playlist {
-    margin-top: 100px;
+    margin-top:100px;
     margin-bottom: 100px; /* Adjust as needed */
 }
 .homebutton button {
+    margin-top: 50px;
+    border-radius: 50px;
     background-color: transparent;
     border: none;
     width: 150px;
@@ -65,6 +67,7 @@
     width: 150px;
 }
 .playlist button {
+    border-radius: 50px;
     background-color: transparent;
     border: none;
     width: 150px;
