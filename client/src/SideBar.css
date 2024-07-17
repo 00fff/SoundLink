@@ -1,0 +1,39 @@
+.sidebar-container {
+    position: relative;
+}
+
+.sidebar {
+    position: fixed;
+    background-color: gray;
+    top: 0; /* Align to the top of the viewport */
+    left: 0; /* Align to the left of the viewport */
+    width: 200px; /* Set a specific width */
+    height: 100vh; /* Full viewport height */
+    padding: 8px; /* Thickness */
+    z-index: 1000; /* Ensure it stays on top */
+    transition: 0.5s;
+}
+
+
+.sidebar li {
+    position: fixed; /* Fixed position to stay on top */
+    color: White;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.sidebar.closed {
+    transform: translateX(-80%); /* Slide out of view when closed */
+    transition: 0.5s;
+    background-color: transparent;
+  }
+.MenuButton {
+    position: fixed; /* Fixed position relative to the viewport */
+    top: 10px; /* Adjust the top position */
+    left: 180px; /* Adjust the left position */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    z-index: 1100; /* Ensure it's above the overlay */
+}

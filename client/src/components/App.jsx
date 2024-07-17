@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserList from "./UserList"
+import Sidebar from './SideBar';
 
 function App() {
   const [artistInfo, setArtistInfo] = useState([]);
@@ -56,7 +57,10 @@ function App() {
 
   return (
     <>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <Sidebar />
       <UserList artistInfo={artistInfo} />
+      
     </>
   );
 }
