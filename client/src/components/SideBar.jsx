@@ -1,10 +1,11 @@
 // Sidebar.js
 import React, { useState, useEffect } from 'react';
 import '../SideBar.css';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
+import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import axios from 'axios';
 
 const Sidebar = () => {
@@ -15,14 +16,18 @@ const Sidebar = () => {
   return (
     <div className="sidebar-container">
     <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
-    <button className="MenuButton"onClick={ToggleSideBar}>{isOpen ? <MenuIcon /> : <CloseIcon />}</button>
-    
-        <ul>
-        <li><a href="home"><HeadphonesIcon /></a></li>
-        
-        </ul>
+    <button className="MenuButton"onClick={ToggleSideBar}>{isOpen ? <CloseIcon /> : <MenuIcon />}</button>
+    <ul className="sidebar-links">
+    <BrowserRouter>
+    <li className='homebutton'>
+    <button><Link reloadDocument to="/"style={{ textDecoration: 'none', color: 'black'}}><HeadphonesIcon /></Link></button>
+    </li>
+    <li className='playlist'>
+        <button ><Link reloadDocument to="/playlist"style={{ textDecoration: 'none', color: 'black'}}><QueueMusicIcon /></Link></button>
+    </li>
+    </BrowserRouter>
+    </ul>
     </div>
-    
     </div>
   );
 };
