@@ -1,3 +1,5 @@
+
+
 body {
     display: flex;
     background-color: #030637;
@@ -10,6 +12,10 @@ body {
     background-color: transparent;
     border: transparent;
 }
+.albumName {
+    font-family: Catamaran;
+    font-size: 21px;
+}
 .playlistItem {
     margin: 10px;
     padding: 25px;
@@ -21,4 +27,9 @@ body {
 .Title {
     padding-left: 100px;
     color: white;
+    font-family: Catamaran;
+}
+@font-face {
+    font-family: "Catamaran";
+    src: url(./assets/Catamaran-VariableFont_wght.ttf);
 }
