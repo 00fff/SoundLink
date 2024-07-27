@@ -4,7 +4,7 @@ import axios from 'axios';
 import UserList from "./UserList";
 import Sidebar from './SideBar';
 import PlayList from './Playlist';
-
+import '../index.css';
 function App() {
   const [artistInfo, setArtistInfo] = useState([]);
   const [accessToken, setAccessToken] = useState();
@@ -54,6 +54,7 @@ function App() {
                     'Authorization': `Bearer ${token}` // Use the token variable here
                 }
             });
+            
             setPlaylist(playlistResponse.data.playlists); // Update playlist state with playlist data
             } catch {
               console.error('Error fetching song or playlist data:', error);

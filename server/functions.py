@@ -30,6 +30,27 @@ def iterate_nested_json_for_loop(nested_dict):
             print(f"{key}: {value}")
 
 
+def resize(image_url, size=(300, 350)):
+    try:
+        # Download the image from the URL
+        response = requests.get(image_url)
+        response.raise_for_status()  # Check if the request was successful
+        # Open the image using BytesIO
+        image = Image.open(BytesIO(response.content))
+        # Resize the image
+        image_resized = image.resize(size)
+        # Convert the resized image to a base64 string
+        buffered = BytesIO()
+        image_resized.save(buffered, format="JPEG")
+        img_str = base64.b64encode(buffered.getvalue()).decode()
+
+        return f"data:image/jpeg;base64,{img_str}"
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+
 
 
 

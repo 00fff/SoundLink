@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    background-color: #030637;
+}
+.playlists{
+    display: flex;
+    padding: 25px;
+}
+.playlistbutton {
+    background-color: transparent;
+    border: transparent;
+}
+.playlistItem {
+    margin: 10px;
+    padding: 25px;
+    background-color:  #36454F;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+}
+.Title {
+    padding-left: 100px;
+    color: white;
+}

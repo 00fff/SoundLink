@@ -4,15 +4,18 @@
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
   flex-direction: column; /* Arrange children in a column */
-  height: 90vh; /* Full viewport height */
+  height: 100vh; /* Full viewport height */
+  width: 100ch;
   font-family: "Lucida Console", "Courier New", monospace; /* Font family */
   font-size: 30px; /* Font size */
   padding: 20px; /* Adjust padding around the container */
+  background-color: #030637; /* Background color for the card */
+  color: white; /* Text color for all text inside the card */
+  border-radius: 10px; /* Optional: Rounded corners for the card */
 }
 
 /* Container for image and text */
 .content {
-
   display: flex; /* Use flexbox layout */
   align-items: center; /* Center items vertically */
   width: 100%; /* Ensure content stretches to full width */
@@ -26,37 +29,41 @@
 
 /* Styling for the text content */
 .text {
-  
- /* Add padding for spacing */
   color: white; /* Text color */
   display: flex; /* Use flexbox layout */
   flex-direction: column; /* Stack paragraphs vertically */
+  padding: 10px; /* Padding for spacing */
 }
 
 /* Styling for paragraphs within the text content */
 .text p {
   margin: 5px 0; /* Adjust vertical spacing between paragraphs */
 }
+
+/* Control buttons styling */
 .control-buttons {
-  background-color: transparent;
-  padding: 15px;
-  right: 175px;
-  top: 310px;
-  position: relative;
+  background-color: transparent; /* Transparent background */
+  padding: 15px; /* Padding around the container */
+  position: absolute; /* Absolute positioning for precise placement */
+  bottom: 20px; /* Adjust bottom positioning as needed */
+  right: 20px; /* Adjust right positioning as needed */
 }
+
+/* Skip buttons styling */
 .skipbuttons {
   transition-duration: 0.4s; /* Smooth transition */
   background-color: #1DB954; /* Green background */
   padding: 15px 30px; /* Padding around the buttons */
   margin: 10px; /* Margin between buttons */
-  border-radius: 100px; /* Rounded corners */
+  border-radius: 50px; /* Rounded corners */
   outline: none; /* Remove default outline */
   border: 2px solid #000000; /* Black border */
   cursor: pointer; /* Pointer cursor on hover */
+  color: white; /* Text color for buttons */
 }
 
 /* Hover effect for skip buttons */
 .skipbuttons:hover {
   background-color: #006925; /* Darker green on hover */
-  color: white;
+  color: white; /* Ensure text color remains white on hover */
 }

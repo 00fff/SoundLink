@@ -4,7 +4,7 @@ from PIL import Image
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 from flask_cors import CORS, cross_origin
 import datetime
-from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token, getColor, iterate_nested_json_for_loop
+from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token, getColor, iterate_nested_json_for_loop, resize
 import os 
 import json
 import urllib.parse
@@ -76,13 +76,16 @@ def check():
 def playlist():
     play_List = sp.current_user_playlists()
     am = len(play_List["items"])
-    names = []
-    
+    playlists = []
+
     for i in range(am):
         name = play_List["items"][i]["name"]
-        names.append(name)
-    
-    return jsonify({"playlists": names})
+        img = play_List["items"][i]["images"][0]["url"]
+        img = resize(img)
+        playlists.append({"name": name, "url": img})
+
+    return jsonify({"playlists": playlists})
+
     
    
 
