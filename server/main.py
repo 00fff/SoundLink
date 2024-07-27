@@ -48,7 +48,7 @@ def getCurrentSong():
         return jsonify({"albumname": albumname, "albumcover": albumcover, "artistname": artistname, "songname": songname, "color": color}), 200
         
     else:
-        return jsonify({"error": "No track is currently playing"}), 400
+        return jsonify({"albumname": "Nothing Is Playing :(", "albumcover": "https://img.freepik.com/premium-vector/no-tv-signal-getting-signal-symbol-screen-displays-color-bars-pattern-error-message-problem-with-connection-4k-full-hd-resolutions-vector-illustration_342166-177.jpg", "artistname": "", "songname": "", "color": "(0,0,0)"}), 200
 
 @app.route("/api/next_song", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
@@ -80,8 +80,15 @@ def playlist():
 
     for i in range(am):
         name = play_List["items"][i]["name"]
-        img = play_List["items"][i]["images"][0]["url"]
-        img = resize(img)
+        images = play_List["items"][i]["images"]
+        
+        if images:
+            img_url = images[0]["url"]
+            img = resize(img_url)  # Ensure resize handles image URLs properly
+        else:
+            img = "client/src/assets/dpfp.png"
+            #img = resize(default_img_path)  # Ensure resize handles image URLs properly
+            
         playlists.append({"name": name, "url": img})
 
     return jsonify({"playlists": playlists})

@@ -7,7 +7,7 @@ const PlayList = ({ playlist }) => {
         console.log("Hello World")
     }
     return (
-        <div>
+        <div className='playlistScreen'>
             <h1 className='Title'>My Playlist</h1>
     <div className='playlists'>
         

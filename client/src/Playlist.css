@@ -4,6 +4,14 @@ body {
     display: flex;
     background-color: #030637;
 }
+.playlistScreen {
+    margin-top: -30px;
+    margin-left: -10px;
+    height: 1000vh;
+    width: 1000vh; /* Set width to 100% of the parent element */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    background-color: #030637;
+}
 .playlists{
     display: flex;
     padding: 25px;
@@ -25,6 +33,7 @@ body {
     color: white;
 }
 .Title {
+    padding: 20px;
     padding-left: 100px;
     color: white;
     font-family: Catamaran;
