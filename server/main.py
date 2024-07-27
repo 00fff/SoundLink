@@ -86,6 +86,13 @@ def playlist():
 
     return jsonify({"playlists": playlists})
 
+@app.route("/api/logout", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def logout():
+    # Would need to delete .cache file go back to when we know how to get the login to appear again
+    return jsonify("hello world")
+     
+
     
    
 
