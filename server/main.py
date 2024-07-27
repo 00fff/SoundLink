@@ -4,7 +4,7 @@ from PIL import Image
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 from flask_cors import CORS, cross_origin
 import datetime
-from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token, getColor
+from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token, getColor, iterate_nested_json_for_loop
 import os 
 import json
 import urllib.parse
@@ -70,6 +70,20 @@ def check():
      data = read_cache()
      data = data.get("access_token")
      return jsonify(data)
+
+@app.route("/api/playlist", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def playlist():
+    play_List = sp.current_user_playlists()
+    am = len(play_List["items"])
+    names = []
+    
+    for i in range(am):
+        name = play_List["items"][i]["name"]
+        names.append(name)
+    
+    return jsonify({"playlists": names})
+    
    
 
     

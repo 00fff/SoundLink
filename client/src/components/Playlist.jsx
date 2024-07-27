@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const PlayList = () => {
+const PlayList = ({ playlist }) => {
+    
     return (
-        <p>Hello World</p>
-    )
+        <div>
+            <p>Hello World</p>
+            <p>{playlist}</p>
+            
+        </div>
+    );
 }
 
 export default PlayList;

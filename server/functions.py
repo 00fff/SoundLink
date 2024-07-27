@@ -22,7 +22,12 @@ def getColor(image_url):
     dominant_color = image_data.get_color(quality=1)
     return dominant_color
 
-
+def iterate_nested_json_for_loop(nested_dict):
+    for key, value in nested_dict.items():
+        if isinstance(value, dict):
+            iterate_nested_json_for_loop(value)
+        else:
+            print(f"{key}: {value}")
 
 
 
