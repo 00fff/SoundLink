@@ -4,6 +4,7 @@ import axios from 'axios';
 import UserList from "./UserList";
 import Sidebar from './SideBar';
 import PlayList from './Playlist';
+import Settings from './Settings';
 import '../index.css';
 function App() {
   const [artistInfo, setArtistInfo] = useState([]);
@@ -85,6 +86,7 @@ function App() {
           <Route index element={<UserList artistInfo={artistInfo} />} />
           <Route path="/home" element={<UserList artistInfo={artistInfo} />} />
           <Route path="/playlist" element={<PlayList playlist={playlist} />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </BrowserRouter>
     </>

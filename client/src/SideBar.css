@@ -13,8 +13,25 @@
     z-index: 1000; /* Ensure it stays on top */
     transition: 0.5s;
 }
-
-
+.settings{
+    margin-top: 850px;
+    margin-left: 130px;
+    
+}
+.settings button {
+    transition: 0.5s;
+    background-color: transparent;
+    border: transparent;
+    width: 35px;
+    border-radius: 50px;
+}
+.settings button:hover{
+    transition: 0.5s;
+    background-color: rgb(35, 35, 54);
+    border: none;
+    width: 35px;
+    border-radius: 50px;
+}
 .sidebar li {
     position: fixed; /* Fixed position to stay on top */
     color: White;

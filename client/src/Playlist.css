@@ -11,6 +11,10 @@ body {
     width: 1000vh; /* Set width to 100% of the parent element */
     box-sizing: border-box; /* Include padding and border in the element's total width */
     background-color: #030637;
+    opacity: 1;
+}
+.playlistScreen:active {
+    opacity: 0.8;
 }
 .playlists{
     display: flex;
@@ -33,7 +37,6 @@ body {
     color: white;
 }
 .Title {
-    padding: 20px;
     padding-left: 100px;
     color: white;
     font-family: Catamaran;
