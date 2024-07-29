@@ -1,0 +1,65 @@
+body {
+    display: flex;
+    z-index: 3; /* Higher z-index to be on top of the overlay */
+    margin: 0; /* Remove default margin */
+    background-color: #030637;
+    height: 100vh; /* Ensure body covers the viewport height */
+    overflow: hidden; /* Prevent overflow */
+}
+.PlayButton{
+    position: absolute;
+    bottom: 105px;
+    left: 350px;
+    background-color: #1DB954;
+    border: transparent;
+    border-radius: 40%;
+    width: 50px;
+    height: 40px;
+}
+.AlbumCard {
+    display: flex; /* Use Flexbox layout */
+    align-items: center; /* Center items vertically */
+    position: absolute; /* Ensure it stays on top */
+    flex-direction: row; /* Align content horizontally */
+    z-index: 3; /* Higher z-index to be on top of the overlay */
+    background-color: #350337; /* Background color for the card */
+    width: 1500px;
+    margin: 25px;
+    margin-left: 200px;
+    transform: translateY(0); /* Adjust positioning as needed */
+}
+
+.albumImage1 {
+    padding: 20px;
+    width: 300px; /* Adjust width of the image */
+    height: 300px; /* Adjust height of the image */
+    margin-right: 10px; /* Space between image and name */
+}
+
+.albumname1 {
+    font-family: Catamaran, sans-serif; /* Use your font family */
+    font-size: 50px; /* Adjust font size */
+    color: white; /* Text color */
+    margin: 0; /* Remove default margins */
+}
+
+
+
+.albumName {
+    font-family: Catamaran, sans-serif; /* Fallback font */
+    font-size: 21px;
+    margin: 0; /* Remove default margin */
+}
+
+
+.Title {
+    padding-left: 100px;
+    color: white;
+    font-family: Catamaran, sans-serif; /* Fallback font */
+    margin: 0; /* Remove default margin */
+}
+
+@font-face {
+    font-family: "Catamaran";
+    src: url(./assets/Catamaran-VariableFont_wght.ttf);
+}

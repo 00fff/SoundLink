@@ -1,46 +1,71 @@
-
-
+/* General body styling */
 body {
+    margin: 0; /* Remove default margin */
     display: flex;
-    background-color: #030637;
+    background-color: #030637; /* Background color for the body */
+    height: 100vh; /* Ensure body covers the viewport height */
+    overflow: hidden; /* Prevent overflow */
+    z-index: 1; /* Ensure it is below the AlbumCard */
 }
+
+/* Overlay for darkening the screen */
+.playlistScreenDarkOverlay {
+    opacity: 0.4;
+    background-color: #030637; /* Keep background color */
+    z-index: 0; /* Ensure it is below the AlbumCard */
+
+}
+
+/* Main playlist screen styling */
 .playlistScreen {
-    margin-top: -30px;
-    margin-left: -10px;
-    height: 1000vh;
-    width: 1000vh; /* Set width to 100% of the parent element */
-    box-sizing: border-box; /* Include padding and border in the element's total width */
-    background-color: #030637;
-    opacity: 1;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    box-sizing: border-box;
+    background-color: #030637; /* Keep background color */
+    z-index: 1; /* Ensure it is below the AlbumCard */
+    position: absolute; /* Cover the entire viewport */
+    top: 0;
+    left: 0;
+    overflow: auto; /* Allow scrolling if needed */
 }
-.playlistScreen:active {
-    opacity: 0.8;
-}
-.playlists{
+
+/* Album card styling */
+
+
+/* Playlist styling */
+.playlists {
+    z-index: 1; /* Ensure it is below the AlbumCard */
     display: flex;
-    padding: 25px;
+    flex-wrap: wrap; /* Allow items to wrap */
+    padding: 15px;
+    gap: 10px; /* Space between items */
 }
+
+/* Playlist button styling */
 .playlistbutton {
     background-color: transparent;
     border: transparent;
 }
-.albumName {
-    font-family: Catamaran;
-    font-size: 21px;
-}
+
+/* Individual playlist item styling */
 .playlistItem {
     margin: 10px;
-    padding: 25px;
-    background-color:  #36454F;
+    padding: 20px;
+    background-color: #36454F;
     border-radius: 8px;
     text-align: center;
-    color: white;
+    font: green;
 }
+
+/* Title styling */
 .Title {
     padding-left: 100px;
     color: white;
-    font-family: Catamaran;
+    font-family: Catamaran, sans-serif; /* Fallback font */
+    margin: 0; /* Remove default margin */
 }
+
+/* Font face definition */
 @font-face {
     font-family: "Catamaran";
     src: url(./assets/Catamaran-VariableFont_wght.ttf);
