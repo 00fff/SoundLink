@@ -2,14 +2,30 @@ body {
     display: flex;
     z-index: 3; /* Higher z-index to be on top of the overlay */
     margin: 0; /* Remove default margin */
-    background-color: #030637;
+    background-color: #8b8c9c;
     height: 100vh; /* Ensure body covers the viewport height */
     overflow: hidden; /* Prevent overflow */
 }
+.SongBox{
+    
+    position: relative;
+    bottom: -170px;
+    right: 430px;
+    height: 350px;
+    width: 2500px;
+    background-color: red;
+    overflow: auto;
+}
+.songs {
+    
+    background-color: blue;
+    list-style-type: none;   
+    width: 300px;
+}
 .PlayButton{
     position: absolute;
-    bottom: 105px;
-    left: 350px;
+    bottom: 500px;
+    left: 320px;
     background-color: #1DB954;
     border: transparent;
     border-radius: 40%;
@@ -17,6 +33,7 @@ body {
     height: 40px;
 }
 .AlbumCard {
+    
     display: flex; /* Use Flexbox layout */
     align-items: center; /* Center items vertically */
     position: absolute; /* Ensure it stays on top */
@@ -24,12 +41,16 @@ body {
     z-index: 3; /* Higher z-index to be on top of the overlay */
     background-color: #350337; /* Background color for the card */
     width: 1500px;
-    margin: 25px;
+    height: 800px;
+    margin: 50px;
     margin-left: 200px;
     transform: translateY(0); /* Adjust positioning as needed */
 }
 
 .albumImage1 {
+    position: relative;
+    top: -220px; /* Move the image up by 100 pixels */
+    right: -20px;
     padding: 20px;
     width: 300px; /* Adjust width of the image */
     height: 300px; /* Adjust height of the image */
@@ -37,6 +58,8 @@ body {
 }
 
 .albumname1 {
+    position: relative; /* Ensure positioning works */
+    top: -220px; /* Move the element up by 220 pixels */
     font-family: Catamaran, sans-serif; /* Use your font family */
     font-size: 50px; /* Adjust font size */
     color: white; /* Text color */
