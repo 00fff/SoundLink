@@ -62,6 +62,12 @@ def LastSong():
     sp.previous_track()
     return jsonify({"message": "Skipped to the previous song"}), 200
 
+@app.route("/api/play", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def Play():
+    uri = request.args.get('uri')  # Retrieve the URI from query parameters
+    sp.start_playback(context_uri=uri)
+    return jsonify({"message": "Succesfully Played Inputed Request"}), 200
 
 
 @app.route("/api/check", methods=["GET", "POST"])
@@ -81,7 +87,7 @@ def playlist():
     for i in range(am):
         name = play_List["items"][i]["name"]
         images = play_List["items"][i]["images"]
-        
+        uri = play_List["items"][i]['uri']
         if images:
             img_url = images[0]["url"]
             img = resize(img_url)  # Ensure resize handles image URLs properly
@@ -89,7 +95,7 @@ def playlist():
             img = "client/src/assets/dpfp.png"
             #img = resize(default_img_path)  # Ensure resize handles image URLs properly
             
-        playlists.append({"name": name, "url": img})
+        playlists.append({"name": name, "url": img, "uri": uri})
 
     return jsonify({"playlists": playlists})
 
