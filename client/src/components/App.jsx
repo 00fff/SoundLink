@@ -49,12 +49,12 @@ function App() {
             try{
               // Fetch playlist information
               const playlistResponse = await axios.get('http://127.0.0.1:8080/api/playlist', {
-                method: 'GET',
                 withCredentials: true, // Include cookies in the request
                 headers: {
-                    'Authorization': `Bearer ${token}` // Use the token variable here
+                    'Authorization': `Bearer ${token}` // Correctly use the token variable here
                 }
             });
+            
             
             setPlaylist(playlistResponse.data.playlists); // Update playlist state with playlist data
             } catch {

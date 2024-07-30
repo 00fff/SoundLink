@@ -11,11 +11,11 @@ import urllib.parse
 # Initialize Flask application
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins="*")  # Enable CORS for all origins
-app.secret_key= os.getenv("KEY")
-SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
-SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
+app.secret_key= "uhiefhufeuihefhefuihuheif"
+SPOTIPY_CLIENT_ID = "37c470559f4046088a8779c114aab3f7" #os.getenv("SPOTIPY_CLIENT_ID")
+SPOTIPY_CLIENT_SECRET = "1812605664d74a9aab800538126a2815" #os.getenv("SPOTIPY_CLIENT_SECRET")
 SPOTIPY_REDIRECT_URI = 'http://127.0.0.1:8080/callback'
-scope = "user-library-read user-read-currently-playing user-read-email"
+scope = "user-library-read user-read-currently-playing user-read-email playlist-read-private user-library-modify streaming"
 
 # Initialize Spotify OAuth object
 auth_manager = SpotifyOAuth(
@@ -34,7 +34,34 @@ def read_cache():
             return data
     except FileNotFoundError:
         return {}
+    
+@app.route('/callback')
+def callback():
+    try:
+        # Get the authorization code from the query parameters
+        auth_code = request.args.get('code')
+        
+        # Check if authorization code is present
+        if not auth_code:
+            return jsonify({"error": "Authorization code not found."}), 400
 
+        # Exchange the authorization code for an access token
+        token_info = auth_manager.get_access_token(auth_code, as_dict=True)
+
+        # Check if token_info is successfully obtained
+        if 'access_token' not in token_info:
+            return jsonify({"error": "Failed to obtain access token."}), 400
+
+        # Save token information to session and cache file
+        session['token_info'] = token_info
+        with open('.cache', 'w') as cache_file:
+            json.dump(token_info, cache_file)
+
+        # Redirect to the main page or another route
+        return redirect('/')
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 @app.route("/api/getCurrentSong", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def getCurrentSong():
@@ -69,13 +96,18 @@ def Play():
     sp.start_playback(context_uri=uri)
     return jsonify({"message": "Succesfully Played Inputed Request"}), 200
 
-
+def check():
+    data = read_cache()
+    data = data.get("access_token")
+    session["token"] = data
+    return jsonify(data)
 @app.route("/api/check", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def check():
-     data = read_cache()
-     data = data.get("access_token")
-     return jsonify(data)
+    data = read_cache()
+    data = data.get("access_token")
+    session["token"] = data
+    return jsonify(data)
 
 @app.route("/api/playlist", methods=["GET"])
 @cross_origin(supports_credentials=True)
