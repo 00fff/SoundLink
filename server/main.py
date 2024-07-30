@@ -104,8 +104,9 @@ def LastSong():
 @app.route("/api/play", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def Play():
-    uri = request.args.get('uri')  # Retrieve the URI from query parameters
-    sp.start_playback(context_uri=uri)
+    print("would have played")
+    # uri = request.args.get('uri')  # Retrieve the URI from query parameters
+    # sp.start_playback(context_uri=uri)
     return jsonify({"message": "Succesfully Played Inputed Request"}), 200
 
 
