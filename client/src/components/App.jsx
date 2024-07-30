@@ -34,7 +34,8 @@ function App() {
                     withCredentials: true, // Include cookies in the request
                     headers: {
                         'Authorization': `Bearer ${token}` // Use the token variable here
-                    }
+                    },
+                    credentials: 'include'  // This allows cookies to be sent with the request
                 });
                 const songdata = current_song.data;
                 setArtistInfo(songdata); // Update artistInfo state with song data
@@ -49,12 +50,13 @@ function App() {
             try{
               // Fetch playlist information
               const playlistResponse = await axios.get('http://127.0.0.1:8080/api/playlist', {
+                method: 'GET',
                 withCredentials: true, // Include cookies in the request
                 headers: {
                     'Authorization': `Bearer ${token}` // Correctly use the token variable here
                 }
             });
-            
+            console.log(playlistResponse.data.playlists)
             
             setPlaylist(playlistResponse.data.playlists); // Update playlist state with playlist data
             } catch {
