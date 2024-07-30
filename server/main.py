@@ -3,14 +3,26 @@ import spotipy
 from PIL import Image
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 from flask_cors import CORS, cross_origin
+from flask_caching import Cache
 import datetime
 from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token, getColor, iterate_nested_json_for_loop, resize
 import os 
 import json
 import urllib.parse
+# set up cache 
+config = {
+    "DEBUG": True,          # some Flask specific configs
+    "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
+    "CACHE_DEFAULT_TIMEOUT": 300
+}
 # Initialize Flask application
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins="*")  # Enable CORS for all origins
+# set up cache instance 
+app.config.from_mapping(config)
+cache = Cache(app)
+# Enable CORS for all origins
+CORS(app, supports_credentials=True, origins="*")  
+# Spotipy Set Up
 app.secret_key= "uhiefhufeuihefhefuihuheif"
 SPOTIPY_CLIENT_ID = "37c470559f4046088a8779c114aab3f7" #os.getenv("SPOTIPY_CLIENT_ID")
 SPOTIPY_CLIENT_SECRET = "1812605664d74a9aab800538126a2815" #os.getenv("SPOTIPY_CLIENT_SECRET")
@@ -96,11 +108,7 @@ def Play():
     sp.start_playback(context_uri=uri)
     return jsonify({"message": "Succesfully Played Inputed Request"}), 200
 
-def check():
-    data = read_cache()
-    data = data.get("access_token")
-    session["token"] = data
-    return jsonify(data)
+
 @app.route("/api/check", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def check():
@@ -111,7 +119,9 @@ def check():
 
 @app.route("/api/playlist", methods=["GET"])
 @cross_origin(supports_credentials=True)
+@cache.cached(timeout=86400)
 def playlist():
+    print("Fetching data from Spotify API")
     play_List = sp.current_user_playlists()
     am = len(play_List["items"])
     playlists = []
