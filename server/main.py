@@ -154,6 +154,18 @@ def playlist():
 
     return jsonify({"playlists": playlists})
 
+@app.route("/api/volume", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def volume():
+    volume = request.args.get('volume')
+    if volume == "":
+        return jsonify("Nah bozo")
+    else:
+        percent = int(volume)
+        print(percent)
+        volume = sp.volume(volume_percent=percent)
+        return jsonify(volume)
+
 @app.route("/api/logout", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def logout():

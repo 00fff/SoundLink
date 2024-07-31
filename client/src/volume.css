@@ -1,0 +1,20 @@
+.volumeBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px; /* Add spacing around the volume box */
+    background-color: transparent;
+}
+
+
+
+.volumeBox input[type="range"]::-moz-range-track {
+    background: #053a5f;
+    height: 0.5rem;
+  }
+
+  .volumeBar {
+
+    background-color: transparent;
+
+  }
