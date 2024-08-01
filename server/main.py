@@ -163,8 +163,15 @@ def volume():
         volume = sp.volume(volume_percent=percent)
         return jsonify(volume)
 
-@app.route("/api/logout", methods=["GET", "POST"])
+@app.route("/api/shuffle", methods=["POST", "GET"])
 @cross_origin(supports_credentials=True)
+def shuffle():
+    sp.shuffle(state=False)
+    return jsonify("succefully Shuffled")
+
+
+@app.route("/api/logout", methods=["GET", "POST"])
+@cross_origin(supports_credentials=False)
 def logout():
     # Would need to delete .cache file go back to when we know how to get the login to appear again
     return jsonify("hello world")
