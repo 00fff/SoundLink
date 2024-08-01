@@ -6,26 +6,38 @@ body {
     height: 100vh; /* Ensure body covers the viewport height */
     overflow: hidden; /* Prevent overflow */
 }
-.SongBox{
-    
-    position: relative;
-    bottom: -170px;
-    right: 430px;
+.closeButton {
+    color: white;
+    border: transparent;
+    background-color: transparent;
+    position: fixed;  /* Ensure it stays in a fixed position relative to the viewport */
+    top: 10px;        /* Adjust as needed */
+    right: 10px;      /* Adjust as needed */
+    z-index: 4;       /* Higher z-index to ensure it's on top of other elements */
+    /* Additional styling as needed */
+}
+.SongBox {
+    border-radius: 15px;
+    position: fixed;  /* Change to fixed to maintain position relative to viewport */
+    bottom: 50px;     /* Adjust as needed */
+    right: 400px;      /* Adjust as needed */
     height: 350px;
-    width: 2500px;
-    background-color: red;
-    overflow: auto;
+    width: 1000px;     /* Adjust width if 2500px was too wide */
+    background-color: #37031F;
+    overflow: auto;   /* Keep content scrollable if needed */
 }
 .songs {
-    
-    background-color: blue;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+    background-color: #1B0337;
     list-style-type: none;   
-    width: 300px;
+    width: 350px;
 }
 .PlayButton{
-    position: absolute;
+    position: fixed;
     bottom: 500px;
-    left: 320px;
+    left: 450px;
     background-color: #1DB954;
     border: transparent;
     border-radius: 40%;
@@ -33,7 +45,6 @@ body {
     height: 40px;
 }
 .AlbumCard {
-    
     display: flex; /* Use Flexbox layout */
     align-items: center; /* Center items vertically */
     position: absolute; /* Ensure it stays on top */
@@ -49,8 +60,9 @@ body {
 
 .albumImage1 {
     position: relative;
+    border-radius: 10%;
     top: -220px; /* Move the image up by 100 pixels */
-    right: -20px;
+    right: -85px;
     padding: 20px;
     width: 300px; /* Adjust width of the image */
     height: 300px; /* Adjust height of the image */
@@ -59,6 +71,7 @@ body {
 
 .albumname1 {
     position: relative; /* Ensure positioning works */
+    left: 100px;
     top: -220px; /* Move the element up by 220 pixels */
     font-family: Catamaran, sans-serif; /* Use your font family */
     font-size: 50px; /* Adjust font size */

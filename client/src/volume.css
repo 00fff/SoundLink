@@ -1,0 +1,60 @@
+.volumeBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  background-color: transparent;
+}
+
+.volumeBox input[type="range"] {
+  -webkit-appearance: none; /* Remove default styling */
+  -moz-appearance: none;
+  appearance: none;
+  width: 200px; /* Adjust width */
+  height: 20px; /* Adjust height of the slider */
+  transform: rotate(-90deg); /* Rotate the slider */
+  transform-origin: center center; /* Rotate around center */
+  background: transparent; /* Hide default background */
+}
+
+.volumeBox input[type="range"]::-webkit-slider-runnable-track {
+  background: black; /* Track color */
+  width: 500px;
+  height: 1rem; /* Height of the track */
+}
+
+.volumeBox input[type="range"]::-moz-range-track {
+  background: black; /* Track color */
+  height: 0.5rem; /* Height of the track */
+  border-radius: 10px;
+  width: 100%;
+}
+
+.volumeBox input[type="range"]::-ms-track {
+  background: #053a5f; /* Track color */
+  height: 0.5rem; /* Height of the track */
+  border-color: transparent;
+  color: transparent;
+}
+
+.volumeBox input[type="range"]::-webkit-slider-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  background: #053a5f; /* Thumb color */
+  cursor: pointer; /* Cursor style */
+  -webkit-appearance: none; /* Remove default appearance */
+}
+
+.volumeBox input[type="range"]::-moz-range-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  background: #053a5f; /* Thumb color */
+  cursor: pointer; /* Cursor style */
+}
+
+.volumeBox input[type="range"]::-ms-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  background: #053a5f; /* Thumb color */
+  cursor: pointer; /* Cursor style */
+}
