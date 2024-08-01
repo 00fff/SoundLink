@@ -166,8 +166,16 @@ def volume():
 @app.route("/api/shuffle", methods=["POST", "GET"])
 @cross_origin(supports_credentials=True)
 def shuffle():
-    sp.shuffle(state=False)
-    return jsonify("succefully Shuffled")
+    state = request.args.get('shuffle')
+    if state is not None:
+        state = state.lower() == 'true'
+        # Assuming sp is your Spotify client instance
+        sp.shuffle(state=state)
+        return jsonify("Successfully shuffled"), 200
+    else:
+        return jsonify("Shuffle state not provided"), 400
+
+
 
 
 @app.route("/api/logout", methods=["GET", "POST"])
