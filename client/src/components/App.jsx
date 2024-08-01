@@ -10,6 +10,8 @@ function App() {
   const [artistInfo, setArtistInfo] = useState([]);
   const [accessToken, setAccessToken] = useState();
   const [playlist, setPlaylist] = useState([]); // Added state for playlist
+  const [showControls, setShowControls] = useState(true);
+
 
   useEffect(() => {
     console.log(accessToken); // This will log the updated accessToken whenever it changes
@@ -79,13 +81,15 @@ function App() {
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
   }, []);
-
+  const HudControls = () => {
+    setShowControls(!showControls)
+  }
   return (
     <>
-      <Sidebar />
+      <Sidebar HudControls={HudControls}/>
       <BrowserRouter>
         <Routes>
-          <Route index element={<UserList artistInfo={artistInfo} />} />
+          <Route index element={<UserList artistInfo={artistInfo} showControls={showControls}/>} />
           <Route path="/home" element={<UserList artistInfo={artistInfo} />} />
           <Route path="/playlist" element={<PlayList playlist={playlist} />} />
           <Route path="/settings" element={<Settings />} />

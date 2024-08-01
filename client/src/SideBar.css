@@ -1,5 +1,6 @@
 .sidebar-container {
     position: relative;
+    display: flex;
 }
 
 .sidebar {
@@ -14,9 +15,21 @@
     transition: 0.5s;
 }
 .settings{
-    margin-top: 850px;
+    margin-top: 830px;
     margin-left: 100px;
     
+}
+.switch{
+    margin-top: 775px;
+    margin-right: 100px;
+    
+}
+.switch p{
+    position: relative;
+    color: black;
+    font-weight: bold;
+    top: 20px;
+    font-family: Catamaran, sans-serif; /* Fallback font */
 }
 .settings button {
     transition: 0.5s;
@@ -95,4 +108,9 @@
     background-color: rgb(35, 35, 54);
     border: none;
     width: 150px;
+}
+
+@font-face {
+    font-family: "Catamaran";
+    src: url(./assets/Catamaran-VariableFont_wght.ttf);
 }

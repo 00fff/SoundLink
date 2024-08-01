@@ -18,8 +18,9 @@
   border-radius: 10px; /* Optional: Rounded corners for the card */
 }
 .volumeControl {
+  height: 175px;
   position: absolute;
-  right: 50px;
+  right: 50px; 
 }
 /* Container for image and text */
 .content {
@@ -33,7 +34,14 @@
   max-width: 200px; /* Maximum width of the image */
   margin-right: 20px; /* Margin between the image and text */
 }
-
+.Shuffle{
+  position: absolute;
+  margin-right: auto;
+  background-color: transparent;
+  bottom: 0px;
+  right: 105px;
+  border: transparent;
+}
 /* Styling for the text content */
 .text {
   font-family: "Catamaran";

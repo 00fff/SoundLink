@@ -163,8 +163,23 @@ def volume():
         volume = sp.volume(volume_percent=percent)
         return jsonify(volume)
 
-@app.route("/api/logout", methods=["GET", "POST"])
+@app.route("/api/shuffle", methods=["POST", "GET"])
 @cross_origin(supports_credentials=True)
+def shuffle():
+    state = request.args.get('shuffle')
+    if state is not None:
+        state = state.lower() == 'true'
+        # Assuming sp is your Spotify client instance
+        sp.shuffle(state=state)
+        return jsonify("Successfully shuffled"), 200
+    else:
+        return jsonify("Shuffle state not provided"), 400
+
+
+
+
+@app.route("/api/logout", methods=["GET", "POST"])
+@cross_origin(supports_credentials=False)
 def logout():
     # Would need to delete .cache file go back to when we know how to get the login to appear again
     return jsonify("hello world")
