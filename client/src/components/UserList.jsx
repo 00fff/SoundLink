@@ -8,7 +8,7 @@ import '../Userlist.css';
 import { red } from '@mui/material/colors';
 
 // Functional component definition for UserList
-const UserList = ({ artistInfo }) => {
+const UserList = ({ artistInfo, showControls }) => {
   const nextSong = async () => {
     try {
       const skipSong = await axios.get("http://127.0.0.1:8080/api/next_song", {
@@ -32,30 +32,31 @@ const UserList = ({ artistInfo }) => {
       console.error('Error skipping to the last song:', error);
     }
   };
-  const HudOff = () => {
-    console.log("OFF")
-  }
   
   return (
     <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})` }}>
       <div className="content">
         <img src={artistInfo.albumcover} alt="Album Cover" className="album-cover" />
-        <div className="control-buttons">
-          <button className="skipbuttons" onClick={lastSong}>
-            <ArrowBackIosNewIcon />
-          </button>
-          <button className="skipbuttons" onClick={nextSong}>
-            <ArrowForwardIosIcon />
-          </button>
-        </div> 
+        
+        {showControls && (
+          <div className="control-buttons">
+            <button className="skipbuttons" onClick={lastSong}>
+              <ArrowBackIosNewIcon />
+            </button>
+            <button className="skipbuttons" onClick={nextSong}>
+              <ArrowForwardIosIcon />
+            </button>
+          </div>
+        )}
         <div className="text">
           <p>{artistInfo.songname}</p>
           <p>{artistInfo.artistname}</p>
           <p>{artistInfo.albumname}</p>
         </div>
-        <div className='volumeControl'>
+        
+        {showControls && (<div className='volumeControl'>
         <Volume />
-        </div>
+        </div>)}
       </div>
     </div>
   );

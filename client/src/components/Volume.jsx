@@ -3,7 +3,7 @@ import axios from 'axios';
 import "../volume.css";
 
 const Volume = () => {
-    const [inputValue, setInputValue] = useState(50); // Default to 50, can be adjusted
+    const [inputValue, setInputValue] = useState(null); // Default to 50, can be adjusted
 
     const handleInputChange = (event) => {
         const value = Number(event.target.value);
