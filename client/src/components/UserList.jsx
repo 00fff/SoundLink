@@ -32,7 +32,10 @@ const UserList = ({ artistInfo }) => {
       console.error('Error skipping to the last song:', error);
     }
   };
-
+  const HudOff = () => {
+    console.log("OFF")
+  }
+  
   return (
     <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})` }}>
       <div className="content">
