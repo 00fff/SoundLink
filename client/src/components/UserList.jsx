@@ -50,7 +50,7 @@ const UserList = ({ artistInfo }) => {
           <p>{artistInfo.artistname}</p>
           <p>{artistInfo.albumname}</p>
         </div>
-        <div>
+        <div className='volumeControl'>
         <Volume />
         </div>
       </div>

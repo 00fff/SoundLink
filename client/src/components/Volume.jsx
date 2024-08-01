@@ -8,8 +8,11 @@ const Volume = () => {
     const handleInputChange = (event) => {
         const value = Number(event.target.value);
         setInputValue(value); // Update state with the new value
-        ChangeVolume(value); // Call the function to change volume immediately
     };
+    
+    const FixVolume = (value) => {
+        console.log("fix Volume" + value)
+    }
 
     const ChangeVolume = async (value) => {
         try {
@@ -35,7 +38,7 @@ const Volume = () => {
 
     return (
         <div className='volumeBox'>
-            <p>Volume</p>
+            
             <input
                 className="volumeBar"
                 type="range"
@@ -43,6 +46,8 @@ const Volume = () => {
                 max="100"
                 value={inputValue} // Controlled input
                 onChange={handleInputChange}
+                onMouseUp={() => ChangeVolume(inputValue)}
+                onTouchEnd={() => ChangeVolume(inputValue)}
             />
         </div>
     );

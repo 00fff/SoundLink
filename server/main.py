@@ -1,33 +1,38 @@
 from flask import Flask, jsonify, redirect, request, session
 import spotipy
-from PIL import Image
-from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
 from flask_cors import CORS, cross_origin
 from flask_caching import Cache
-import datetime
-from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token, getColor, iterate_nested_json_for_loop, resize
-import os 
+import os
 import json
-import urllib.parse
+from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token, getColor, iterate_nested_json_for_loop, resize
 # set up cache 
 config = {
     "DEBUG": True,          # some Flask specific configs
     "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
     "CACHE_DEFAULT_TIMEOUT": 300
 }
+
 # Initialize Flask application
 app = Flask(__name__)
+
 # set up cache instance 
 app.config.from_mapping(config)
 cache = Cache(app)
+
 # Enable CORS for all origins
-CORS(app, supports_credentials=True, origins="*")  
+CORS(app, supports_credentials=True, origins="*")
+
 # Spotipy Set Up
-app.secret_key= "uhiefhufeuihefhefuihuheif"
-SPOTIPY_CLIENT_ID = "37c470559f4046088a8779c114aab3f7" #os.getenv("SPOTIPY_CLIENT_ID")
-SPOTIPY_CLIENT_SECRET = "1812605664d74a9aab800538126a2815" #os.getenv("SPOTIPY_CLIENT_SECRET")
+app.secret_key = "uhiefhufeuihefhefuihuheif"
+SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
+SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
 SPOTIPY_REDIRECT_URI = 'http://127.0.0.1:8080/callback'
 scope = "user-library-read user-read-currently-playing user-read-email playlist-read-private user-library-modify streaming"
+
+# Ensure credentials are correctly loaded
+if not SPOTIPY_CLIENT_ID or not SPOTIPY_CLIENT_SECRET:
+    raise Exception("Spotify client ID or secret is not set in environment variables.")
 
 # Initialize Spotify OAuth object
 auth_manager = SpotifyOAuth(
@@ -37,7 +42,7 @@ auth_manager = SpotifyOAuth(
     scope=scope
 )
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+sp = spotipy.Spotify(auth_manager=auth_manager)
 
 def read_cache():
     try:
@@ -46,30 +51,22 @@ def read_cache():
             return data
     except FileNotFoundError:
         return {}
-    
+
 @app.route('/callback')
 def callback():
     try:
-        # Get the authorization code from the query parameters
         auth_code = request.args.get('code')
-        
-        # Check if authorization code is present
         if not auth_code:
             return jsonify({"error": "Authorization code not found."}), 400
 
-        # Exchange the authorization code for an access token
         token_info = auth_manager.get_access_token(auth_code, as_dict=True)
-
-        # Check if token_info is successfully obtained
         if 'access_token' not in token_info:
             return jsonify({"error": "Failed to obtain access token."}), 400
 
-        # Save token information to session and cache file
         session['token_info'] = token_info
         with open('.cache', 'w') as cache_file:
             json.dump(token_info, cache_file)
 
-        # Redirect to the main page or another route
         return redirect('/')
     except Exception as e:
         return jsonify({"error": str(e)}), 500

@@ -17,7 +17,10 @@
   color: white; /* Text color for all text inside the card */
   border-radius: 10px; /* Optional: Rounded corners for the card */
 }
-
+.volumeControl {
+  position: absolute;
+  right: 50px;
+}
 /* Container for image and text */
 .content {
   display: flex; /* Use flexbox layout */
