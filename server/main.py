@@ -180,7 +180,6 @@ def shuffle():
 @cross_origin(supports_credentials=True)
 def repeat():
     state = request.args.get('state')
-    print(state)
     sp.repeat(state=state)
     return jsonify("Track Succefully Repeated", 200)
 

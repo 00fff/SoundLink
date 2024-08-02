@@ -8,14 +8,31 @@
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
   flex-direction: column; /* Arrange children in a column */
-  height: 100vh; /* Full viewport height */
-  width: 100ch;
-  font-family: "Lucida Console", "Courier New", monospace; /* Font family */
+  height: 200vh; /* Full viewport height */
+  width: 130ch;
+  font-family: "Catamaran";
   font-size: 30px; /* Font size */
   padding: 20px; /* Adjust padding around the container */
   background-color: #030637; /* Background color for the card */
   color: white; /* Text color for all text inside the card */
   border-radius: 10px; /* Optional: Rounded corners for the card */
+}
+.time {
+  position: absolute;
+  background-color: #1DB954;
+  top: 10px;
+  right: 70px;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100px;
+  text-align: center;
+}
+
+.time p {
+  font-family: "Catamaran";
+  margin: 0;
+  padding: 10px;
+  color: white;
 }
 .volumeControl {
   height: 175px;

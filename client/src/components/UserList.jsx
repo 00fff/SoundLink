@@ -1,5 +1,5 @@
 // Import React library (required for JSX)
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Volume from "./Volume";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -15,6 +15,15 @@ import { red } from '@mui/material/colors';
 const UserList = ({ artistInfo, showControls }) => {
   const [shuffleState, setShuffleState] = useState(false)
   const [repeatState, setRepeatState] = useState("off")
+  const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0, -6));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString().slice(0, -6));
+    }, 1000);
+  }
+
+  )
   const nextSong = async () => {
     try {
       const skipSong = await axios.get("http://127.0.0.1:8080/api/next_song", {
@@ -77,8 +86,16 @@ const UserList = ({ artistInfo, showControls }) => {
       Repeat(repeatState)
     }
   }
+
+
+
   return (
     <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})` }}>
+       {showControls && (
+      <div className='time'>
+        <p>{time} PM</p>
+      </div>)}
+      
       <div className="content">
         <img src={artistInfo.albumcover} alt="Album Cover" className="album-cover" />
         

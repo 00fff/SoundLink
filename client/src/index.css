@@ -10,7 +10,7 @@
 }
 .card img {
   max-width: 100%; /* Ensure image doesn't exceed parent width */
-  margin-top: 10px; /* Adjust as needed for spacing */
+  max-height: 100%;
 }
 p {
 color: white;
