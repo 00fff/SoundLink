@@ -6,12 +6,15 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import ShuffleOnIcon from '@mui/icons-material/ShuffleOn';
+import RepeatOnIcon from '@mui/icons-material/RepeatOn';
+import RepeatOneOnIcon from '@mui/icons-material/RepeatOneOn';
 import '../Userlist.css';
 import { red } from '@mui/material/colors';
 
 // Functional component definition for UserList
 const UserList = ({ artistInfo, showControls }) => {
   const [shuffleState, setShuffleState] = useState(false)
+  const [repeatState, setRepeatState] = useState("off")
   const nextSong = async () => {
     try {
       const skipSong = await axios.get("http://127.0.0.1:8080/api/next_song", {
@@ -47,11 +50,32 @@ const UserList = ({ artistInfo, showControls }) => {
       console.error('Error skipping to the last song:', error);
     }
   };
-
+  const Repeat = async(state) => {
+    try {
+      const repeatSong = await axios.get("http://127.0.0.1:8080/api/repeat", {
+        params: {state: state},
+        method: 'GET',
+        withCredentials: true, // Include cookies in the request
+      });
+    } catch (error) {
+      console.error('Error skipping to the last song:', error);
+    }
+  }
   const ChangeShuffle = () => {
     setShuffleState(!shuffleState)
     switchShuffle(shuffleState)
     
+  }
+  const ClickedRepeat = () => {
+    console.log(repeatState)
+    if (repeatState === "off") {
+      setRepeatState("track");
+
+      Repeat(repeatState)
+    } else {
+      setRepeatState("off")
+      Repeat(repeatState)
+    }
   }
   return (
     <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})` }}>
@@ -75,8 +99,10 @@ const UserList = ({ artistInfo, showControls }) => {
         </div>
         
         {showControls && (<div className='volumeControl'>
+        
         <Volume />
         <button  onClick={ChangeShuffle} className='Shuffle'>{shuffleState === false ? <ShuffleOnIcon /> : <ShuffleIcon />}</button>
+        <button onClick={ClickedRepeat} className='Repeat'>{repeatState === "track" ? <RepeatOnIcon /> : <RepeatOneOnIcon />}</button>
         </div>)}
       </div>
     </div>

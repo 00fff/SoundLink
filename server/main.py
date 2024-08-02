@@ -4,6 +4,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from flask_cors import CORS, cross_origin
 from flask_caching import Cache
 import os
+import dotenv
 import json
 from functions import test_get_artist, get_current_playing, get_token, generate_random_string, exchange_code_for_token, getColor, iterate_nested_json_for_loop, resize
 # set up cache 
@@ -15,7 +16,7 @@ config = {
 
 # Initialize Flask application
 app = Flask(__name__)
-
+dotenv.load_dotenv()
 # set up cache instance 
 app.config.from_mapping(config)
 cache = Cache(app)
@@ -175,8 +176,13 @@ def shuffle():
     else:
         return jsonify("Shuffle state not provided"), 400
 
-
-
+@app.route("/api/repeat", methods=["POST", "GET"])
+@cross_origin(supports_credentials=True)
+def repeat():
+    state = request.args.get('state')
+    print(state)
+    sp.repeat(state=state)
+    return jsonify("Track Succefully Repeated", 200)
 
 @app.route("/api/logout", methods=["GET", "POST"])
 @cross_origin(supports_credentials=False)
