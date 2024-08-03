@@ -110,8 +110,9 @@ def play():
 @app.route("/api/playSong", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def playSong():
-    uri = request.args.get('uri')  # Retrieve the URI from query parameters
-    sp.start_playback(device_id="4dcf2fd96ade17f81c43f1b4c97e368928da524f", uris=uri, offset={'position': 0})
+    # uri = request.args.get('uri')  # Retrieve the URI from query parameters
+    # sp.start_playback(device_id="4dcf2fd96ade17f81c43f1b4c97e368928da524f", uris=[uri], offset={'position': 0})
+    return jsonify("Message Succesfully Played Inputed Request"), 200
 
 @app.route("/api/devices")
 @cross_origin(supports_credentials=True)
