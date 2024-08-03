@@ -91,7 +91,7 @@ function App() {
         <Routes>
           <Route index element={<UserList artistInfo={artistInfo} showControls={showControls}/>} />
           <Route path="/home" element={<UserList artistInfo={artistInfo} />} />
-          <Route path="/playlist" element={<PlayList playlist={playlist} />} />
+          <Route path="/playlist" element={<PlayList playlist={playlist} artistInfo={artistInfo} />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </BrowserRouter>
