@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, redirect, request, session
 import spotipy
+import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
 from flask_cors import CORS, cross_origin
 from flask_caching import Cache
@@ -101,7 +102,7 @@ def LastSong():
 
 @app.route("/api/play", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
-def Play():
+def play():
     print("would have played")
     # uri = request.args.get('uri')  # Retrieve the URI from query parameters
     # sp.start_playback(context_uri=uri)
@@ -189,7 +190,10 @@ def logout():
     # Would need to delete .cache file go back to when we know how to get the login to appear again
     return jsonify("hello world")
      
-
+@app.route('/api/sign_out')
+def sign_out():
+    session.pop("token_info", None)
+    return redirect('/')
     
    
 
