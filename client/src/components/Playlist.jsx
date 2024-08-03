@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import AlbumCard from './AlbumCard';
+import Footer from './Footer'
 import '../Playlist.css';
 
-const PlayList = ({ playlist }) => {
+const PlayList = ({ playlist, artistInfo }) => {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
 
     const handleClick = (index) => {
@@ -34,8 +35,11 @@ const PlayList = ({ playlist }) => {
                             </div>
                         </button>
                     ))}
-                </div> 
+                    {/* {<Footer title={artistInfo.songname} img={artistInfo.albumcover}/>} */}
+                </div>
+                 
             </div>
+           
         </div>
     );
 };

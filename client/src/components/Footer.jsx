@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
-
-const Footer = () => {
+import "../Footer.css"
+const Footer = (props) => {
     return(
-        <p>Hello World</p>
+        <div className='playlistBrick'>
+            <div className='div2'>
+                <img className="albumImg" src={props.img} alt={props.title} /> 
+                <p className='songname'>{props.title}</p> 
+            </div>
+               
+        </div>
+        
     )
 }
+
+export default Footer;
