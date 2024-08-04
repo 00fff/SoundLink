@@ -12,10 +12,8 @@ import '../Userlist.css';
 import { red } from '@mui/material/colors';
 
 // Functional component definition for UserList
-const UserList = ({ artistInfo, showControls, pattern }) => {
-  const backgroundImage = pattern === "geometric"
-    ? "url('http://www.transparenttextures.com/patterns/cutcube.png')"
-    : "url('https://www.transparenttextures.com/patterns/candyhole.png')";
+const UserList = ({ artistInfo, showControls}) => {
+  
   const [shuffleState, setShuffleState] = useState(false)
   const [repeatState, setRepeatState] = useState("off")
   const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0, -6));
@@ -89,11 +87,13 @@ const UserList = ({ artistInfo, showControls, pattern }) => {
       Repeat(repeatState)
     }
   }
+  const backgroundImage = localStorage.getItem("BackGround");
+  
 
 
 
   return (
-    <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})`, backgroundImage: backgroundImage }}>
+    <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})`, backgroundImage: backgroundImage === "geometric" ? "url('http://www.transparenttextures.com/patterns/cutcube.png')": "url('https://www.transparenttextures.com/patterns/black-twill.png')"}}>
        {showControls && (
       <div className='time' style={{ borderColor: 'black' }}>
         <p>{time} PM</p>

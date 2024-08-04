@@ -15,8 +15,10 @@ function App() {
   const [changedBackground, setBackground] = useState("geometric");
 
   useEffect(() => {
-    console.log(accessToken);
+    console.log("Access Token:", accessToken);
   }, [accessToken]);
+
+  
 
   const fetchAPI = async () => {
     try {
@@ -78,18 +80,17 @@ function App() {
   };
 
   const ChangeBackground = (background) => {
-    setBackground(background);
-    console.log("Updated background:", changedBackground); // This will log the correct updated background value
-  };
+    localStorage.setItem("BackGround", background);
+};
 
 
   return (
     <>
-      <Sidebar HudControls={HudControls}/>
+      <Sidebar HudControls={HudControls} />
       <BrowserRouter>
         <Routes>
-          <Route index element={<UserList artistInfo={artistInfo} showControls={showControls} pattern={changedBackground}/>} />
-          <Route path="/home" element={<UserList artistInfo={artistInfo} showControls={showControls} pattern={changedBackground}/>} />
+          <Route index element={<UserList artistInfo={artistInfo} showControls={showControls}/>} />
+          <Route path="/home" element={<UserList artistInfo={artistInfo} showControls={showControls} />} />
           <Route path="/playlist" element={<PlayList playlist={playlist} artistInfo={artistInfo} />} />
           <Route path="/settings" element={<Settings ChangeBackground={ChangeBackground} />} />
         </Routes>
