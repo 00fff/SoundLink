@@ -222,10 +222,20 @@ def repeat():
      
 @app.route('/api/logout')
 def logout():
-    username = request.args.get('name')
-    token = util.prompt_for_user_token(username, show_dialog=True)
-    return redirect("/callback")
-
+    # Path to the cache file
+    cache_path = ".cache"
+    
+    # Remove the cache file if it exists
+    if os.path.exists(cache_path):
+        os.remove(cache_path)
+    
+    try:
+        # Prompt for user token with show_dialog to True to force login dialog
+        token = util.prompt_for_user_token(show_dialog=True)
+        return redirect("/callback")
+    except Exception as e:
+        # Handle exceptions (e.g., token retrieval issues)
+        return str(e), 500
    
 
     

@@ -63,3 +63,21 @@
     width: 80px; /* Adjust button width */
     text-align: center; /* Center text */
 }
+.logOut button{
+    position: absolute;
+    top: 350px;
+    left: 220px;
+    background-color: transparent;
+    border-radius: 7%;
+    width: 120px;
+
+}
+.logOut button:hover{
+    transition: 0.5s;
+    position: absolute;
+    top: 350px;
+    left: 220px;
+    background-color: gray;
+    border-radius: 7%;
+    width: 120px;
+}
