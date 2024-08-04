@@ -7,7 +7,7 @@ html, body {
 
 
 .card {
-  /* background-image: url(http://www.transparenttextures.com/patterns/cutcube.png); */
+  background-image: url(http://www.transparenttextures.com/patterns/cutcube.png);
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center;     /* Center vertically */

@@ -89,7 +89,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<UserList artistInfo={artistInfo} showControls={showControls} pattern={changedBackground}/>} />
-          <Route path="/home" element={<UserList artistInfo={artistInfo} pattern={changedBackground}/>} />
+          <Route path="/home" element={<UserList artistInfo={artistInfo} showControls={showControls} pattern={changedBackground}/>} />
           <Route path="/playlist" element={<PlayList playlist={playlist} artistInfo={artistInfo} />} />
           <Route path="/settings" element={<Settings ChangeBackground={ChangeBackground} />} />
         </Routes>

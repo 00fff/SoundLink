@@ -9,18 +9,17 @@ import ShuffleOnIcon from '@mui/icons-material/ShuffleOn';
 import RepeatOnIcon from '@mui/icons-material/RepeatOn';
 import RepeatOneOnIcon from '@mui/icons-material/RepeatOneOn';
 import '../Userlist.css';
-
+import { red } from '@mui/material/colors';
 
 // Functional component definition for UserList
 const UserList = ({ artistInfo, showControls, pattern }) => {
-  console.log(pattern)
   const backgroundImage = pattern === "geometric"
     ? "url('http://www.transparenttextures.com/patterns/cutcube.png')"
     : "url('https://www.transparenttextures.com/patterns/candyhole.png')";
   const [shuffleState, setShuffleState] = useState(false)
   const [repeatState, setRepeatState] = useState("off")
   const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0, -6));
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date().toLocaleTimeString().slice(0, -6));
@@ -91,11 +90,12 @@ const UserList = ({ artistInfo, showControls, pattern }) => {
     }
   }
 
-  
+
+
   return (
-    <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})`, backgroundImage: backgroundImage}}>
+    <div className="card" style={{ backgroundColor: `rgb(${artistInfo.color})`, backgroundImage: backgroundImage }}>
        {showControls && (
-      <div className='time'>
+      <div className='time' style={{ borderColor: 'black' }}>
         <p>{time} PM</p>
       </div>)}
       
