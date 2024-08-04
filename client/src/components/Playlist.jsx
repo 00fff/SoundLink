@@ -7,7 +7,6 @@ const PlayList = ({ playlist, artistInfo }) => {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
 
     const handleClick = (index) => {
-        console.log("hello world");
         setSelectedPlaylist(selectedPlaylist === index ? null : index);
     };
 
@@ -17,7 +16,7 @@ const PlayList = ({ playlist, artistInfo }) => {
         <div>
             {selectedPlaylist !== null && (
                 <div>
-                    <AlbumCard album={playlist[selectedPlaylist]} handler={() => handleClick(null)} />
+                    <AlbumCard album={playlist[selectedPlaylist]} songinfo={artistInfo} handler={() => handleClick(null)} />
                 </div>
             )}
             <div className={isActive ? "playlistScreenDarkOverlay" : "playlistScreen"}>

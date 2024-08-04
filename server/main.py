@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, redirect, request, session
 import spotipy
+import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
 from flask_cors import CORS, cross_origin
 from flask_caching import Cache
@@ -29,7 +30,7 @@ app.secret_key = "uhiefhufeuihefhefuihuheif"
 SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
 SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
 SPOTIPY_REDIRECT_URI = 'http://127.0.0.1:8080/callback'
-scope = "user-library-read user-read-currently-playing user-read-email playlist-read-private user-library-modify streaming"
+scope = "user-library-read user-read-currently-playing user-read-email playlist-read-private user-library-modify streaming user-modify-playback-state user-read-playback-state"
 
 # Ensure credentials are correctly loaded
 if not SPOTIPY_CLIENT_ID or not SPOTIPY_CLIENT_SECRET:
@@ -101,11 +102,24 @@ def LastSong():
 
 @app.route("/api/play", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
-def Play():
-    print("would have played")
+def play():
+    uri = request.args.get('uri')  # Retrieve the URI from query parameters
+    sp.start_playback(device_id="4dcf2fd96ade17f81c43f1b4c97e368928da524f", context_uri=uri, offset={'position': 0})
+    return jsonify("Message Succesfully Played Inputed Request"), 200
+
+@app.route("/api/playSong", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def playSong():
     # uri = request.args.get('uri')  # Retrieve the URI from query parameters
-    # sp.start_playback(context_uri=uri)
-    return jsonify({"message": "Succesfully Played Inputed Request"}), 200
+    # sp.start_playback(device_id="4dcf2fd96ade17f81c43f1b4c97e368928da524f", uris=[uri], offset={'position': 0})
+    return jsonify("Message Succesfully Played Inputed Request"), 200
+
+@app.route("/api/devices")
+@cross_origin(supports_credentials=True)
+def devices():
+    devices = sp.devices()
+    device = devices['devices'][0]["id"]
+    return jsonify(device), 200
 
 
 @app.route("/api/check", methods=["GET", "POST"])
@@ -182,15 +196,13 @@ def repeat():
     state = request.args.get('state')
     sp.repeat(state=state)
     return jsonify("Track Succefully Repeated", 200)
-
-@app.route("/api/logout", methods=["GET", "POST"])
-@cross_origin(supports_credentials=False)
-def logout():
-    # Would need to delete .cache file go back to when we know how to get the login to appear again
-    return jsonify("hello world")
      
+@app.route('/api/logout')
+def logout():
+    username = request.args.get('name')
+    token = util.prompt_for_user_token(username, show_dialog=True)
+    return redirect("/callback")
 
-    
    
 
     

@@ -19,7 +19,9 @@
 }
 .time {
   position: absolute;
+  border-color: black;
   background-color: #1DB954;
+
   top: 10px;
   right: 70px;
   border-radius: 5px;
