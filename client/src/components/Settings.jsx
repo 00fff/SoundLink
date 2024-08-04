@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LogoutIcon from '@mui/icons-material/Logout';
 import "../Settings.css";
 
 const Settings = ({ ChangeBackground }) => {
@@ -23,8 +24,13 @@ const Settings = ({ ChangeBackground }) => {
                         <button onClick={() => handleBackgroundChange("geometric")}>Geometric</button>
                         <button onClick={() => handleBackgroundChange("stripes")}>Stripes</button>
                     </div>
+                    
+                    
                 </div>
             )}
+            <div className='logOut'>
+                    <button><LogoutIcon /></button>
+                        </div>
         </div>
     );
 };
