@@ -135,36 +135,59 @@ def check():
 @cache.cached(timeout=86400)
 def playlist():
     print("Fetching data from Spotify API")
-    play_List = sp.current_user_playlists()
-    am = len(play_List["items"])
+    play_list = sp.current_user_playlists()
+    am = len(play_list["items"])
     playlists = []
 
     for i in range(am):
-        name = play_List["items"][i]["name"]
-        images = play_List["items"][i]["images"]
-        uri = play_List["items"][i]['uri']
+        name = play_list["items"][i]["name"]
+        images = play_list["items"][i]["images"]
+        uri = play_list["items"][i]['uri']
+        
+        # Fetch tracks from playlist
         tracks = sp.playlist_items(uri)
         song_list = []
+
         if tracks is not None and 'items' in tracks:
             songs = tracks['items']
+            
             for item in songs:
                 if item.get('track') is not None and 'name' in item['track'] and item['track']['name'] is not None:
-                    song = item['track']['name']
+                    song_name = item['track']['name']
+                    
+                    # Fetch album artists for each track
+                    album_artists = item['track'].get('artists', [])
+                    artist_names = [artist['name'] for artist in album_artists if 'name' in artist]
+                    
+                    song_list.append({
+                        'song': song_name,
+                        'artists': artist_names
+                    })
                 else:
                     print("Song unable to be retrieved")
-                    song = "Unknown Song"  # Provide a default value or skip appending if needed
-                
-                song_list.append(song)
+                    song_list.append({
+                        'song': "Unknown Song",  # Provide a default value
+                        'artists': []
+                    })
+        
+        # Handle playlist images
         if images:
             img_url = images[0]["url"]
             img = resize(img_url)  # Ensure resize handles image URLs properly
         else:
             img = "client/src/assets/dpfp.png"
-            #img = resize(default_img_path)  # Ensure resize handles image URLs properly
+            # img = resize(default_img_path)  # Ensure resize handles image URLs properly
             
-        playlists.append({"name": name, "url": img, "uri": uri, "songs": song_list})
-
+        playlists.append({
+            "name": name,
+            "url": img,
+            "uri": uri,
+            "songs": song_list
+        })
+    
     return jsonify({"playlists": playlists})
+
+    
 
 @app.route("/api/volume", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
