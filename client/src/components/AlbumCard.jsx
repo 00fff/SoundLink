@@ -6,8 +6,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CloseIcon from '@mui/icons-material/Close';
 
 const AlbumCard = ({ album, handler, songinfo }) => {
-    const { songs, url, name, uri } = album;
-
+    const { songs, url, name, uri, artists} = album;
+    console.log(songs[0])
     const close = () => {
         handler();
     };
@@ -46,8 +46,8 @@ const AlbumCard = ({ album, handler, songinfo }) => {
             <button onClick={PlayPlaylist} className="PlayButton"><PlayArrowIcon /></button>
             <div className="SongBox">
                 <ul>
-                    {songs.map(song => (
-                        <li className="songs" key={song}><SongCard name={song} /> 
+                    {songs.map((song, index)=> (
+                        <li className="songs" key={index}><SongCard name={song.song} artistnames={song.artists[0]}/> 
                         </li>
                         // <button onClick={PlaySong} className="songButton"><PlayArrowIcon /></button></li>
                     ))}

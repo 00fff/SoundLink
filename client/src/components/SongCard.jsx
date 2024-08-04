@@ -4,7 +4,7 @@ const SongCard = (prop) => {
 
     return (
         <div>
-            <p>{prop.name}</p>
+    <p>{prop.name} by {prop.artistnames}</p>
             </div>
         
     )
