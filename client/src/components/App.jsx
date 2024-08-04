@@ -6,93 +6,92 @@ import Sidebar from './SideBar';
 import PlayList from './Playlist';
 import Settings from './Settings';
 import '../index.css';
+
 function App() {
   const [artistInfo, setArtistInfo] = useState([]);
   const [accessToken, setAccessToken] = useState();
-  const [playlist, setPlaylist] = useState([]); // Added state for playlist
+  const [playlist, setPlaylist] = useState([]);
   const [showControls, setShowControls] = useState(true);
-
+  const [changedBackground, setBackground] = useState("geometric");
 
   useEffect(() => {
-    console.log(accessToken); // This will log the updated accessToken whenever it changes
+    console.log(accessToken);
   }, [accessToken]);
 
   const fetchAPI = async () => {
     try {
-        // Fetch access token
-        const response = await axios.get('http://127.0.0.1:8080/api/check', {
+      const response = await axios.get('http://127.0.0.1:8080/api/check', {
+        method: 'GET',
+        withCredentials: true,
+      });
+      const token = response.data;
+      setAccessToken(token);
+
+      if (token) {
+        try {
+          const current_song = await axios.get('http://127.0.0.1:8080/api/getCurrentSong', {
             method: 'GET',
-            withCredentials: true, // Include cookies in the request
-        });
-        const token = response.data;
-        setAccessToken(token);
+            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include'
+          });
+          const songdata = current_song.data;
+          setArtistInfo(songdata);
 
-        if (token) {
-            try {
-              
-                // Fetch current song information
-                const current_song = await axios.get('http://127.0.0.1:8080/api/getCurrentSong', {
-                    method: 'GET',
-                    withCredentials: true, // Include cookies in the request
-                    headers: {
-                        'Authorization': `Bearer ${token}` // Use the token variable here
-                    },
-                    credentials: 'include'  // This allows cookies to be sent with the request
-                });
-                const songdata = current_song.data;
-                setArtistInfo(songdata); // Update artistInfo state with song data
-
-                
-
-            } catch (error) {
-                console.error('Error fetching song or playlist data:', error);
-                // Optionally handle cases where no current song is playing
-                setArtistInfo(null); // Reset artistInfo if needed
-            }
-            try{
-              // Fetch playlist information
-              const playlistResponse = await axios.get('http://127.0.0.1:8080/api/playlist', {
-                method: 'GET',
-                withCredentials: true, // Include cookies in the request
-                headers: {
-                    'Authorization': `Bearer ${token}` // Correctly use the token variable here
-                }
-            });
-            console.log(playlistResponse.data.playlists)
-            
-            setPlaylist(playlistResponse.data.playlists); // Update playlist state with playlist data
-            } catch {
-              console.error('Error fetching song or playlist data:', error);
-            }
-        } else {
-            console.log('Token does not exist or is invalid');
+        } catch (error) {
+          console.error('Error fetching song or playlist data:', error);
+          setArtistInfo(null);
         }
+
+        try {
+          const playlistResponse = await axios.get('http://127.0.0.1:8080/api/playlist', {
+            method: 'GET',
+            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          setPlaylist(playlistResponse.data.playlists);
+        } catch (error) {
+          console.error('Error fetching playlist data:', error);
+        }
+      } else {
+        console.log('Token does not exist or is invalid');
+      }
     } catch (error) {
-        console.error('Error fetching access token:', error);
+      console.error('Error fetching access token:', error);
     }
-};
+  };
 
   useEffect(() => {
-    // Polling interval
     const interval = setInterval(() => {
       fetchAPI();
     }, 5000);
-  
-    // Cleanup interval on component unmount
+
     return () => clearInterval(interval);
   }, []);
+
   const HudControls = () => {
-    setShowControls(!showControls)
-  }
+    setShowControls(!showControls);
+  };
+
+  const ChangeBackground = (background) => {
+    setBackground(background);
+    console.log("Updated background:", changedBackground); // This will log the correct updated background value
+  };
+
+
   return (
     <>
       <Sidebar HudControls={HudControls}/>
       <BrowserRouter>
         <Routes>
-          <Route index element={<UserList artistInfo={artistInfo} showControls={showControls}/>} />
-          <Route path="/home" element={<UserList artistInfo={artistInfo} />} />
+          <Route index element={<UserList artistInfo={artistInfo} showControls={showControls} pattern={changedBackground}/>} />
+          <Route path="/home" element={<UserList artistInfo={artistInfo} pattern={changedBackground}/>} />
           <Route path="/playlist" element={<PlayList playlist={playlist} artistInfo={artistInfo} />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/settings" element={<Settings ChangeBackground={ChangeBackground} />} />
         </Routes>
       </BrowserRouter>
     </>

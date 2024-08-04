@@ -1,5 +1,13 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+
 .card {
-  background-image: url(http://www.transparenttextures.com/patterns/cutcube.png);
+  /* background-image: url(http://www.transparenttextures.com/patterns/cutcube.png); */
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center;     /* Center vertically */
