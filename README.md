@@ -23,71 +23,43 @@ Prerequisites
 
 Installation
 
-    Clone the repository:
+    Clone the repository: git clone https://github.com/0fff/SoundLink.git
+    cd SoundLink
 
-bash
+cd into Backend
 
-git clone https://github.com/0fff/SoundLink.git
-cd SoundLink
+    cd server
 
-    Set up the backend:
-        Navigate to the server directory:
+Start Virtual Enviroment and install dependencies 
 
-    bash
-
-cd server
-
-    Create a virtual environment:
-
-bash
-
-python3 -m venv venv
-source venv/bin/activate
-
-    Install dependencies:
-
-bash
-
-pip install -r requirements.txt
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
 
 Set up the frontend:
 
-    Navigate to the client directory:
+    cd client
 
-bash
+ Install dependencies:
 
-cd ../client
-
-    Install dependencies:
-
-bash
-
-npm install
+    npm install
 
 Set up Spotify credentials:
 
     Export your Spotify credentials as environment variables:
-
-bash
-
-export SPOTIFY_CLIENT_ID=your_spotify_client_id
-export SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-export SPOTIFY_REDIRECT_URI=http://localhost:5000/callback
+    
+    export SPOTIFY_CLIENT_ID=your_spotify_client_id
+    export SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+    export SPOTIFY_REDIRECT_URI=http://localhost:5000/callback
 
 Start the backend server:
 
     In the server directory:
-
-bash
-
-flask run
+    python main.py
 
 Start the frontend development server:
 
     In the client directory:
-
-bash
-
     npm run dev
 
 Usage
