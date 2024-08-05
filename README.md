@@ -65,6 +65,6 @@ Start the frontend development server:
 Usage
 
 Once both the frontend and backend servers are running, open your browser and navigate to http://localhost:5173 to access the SoundLink application. You will be prompted to log in with your Spotify account to grant the necessary permissions.
-Contributing
+
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
