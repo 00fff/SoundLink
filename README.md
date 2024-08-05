@@ -50,7 +50,7 @@ Set up Spotify credentials:
     
     export SPOTIFY_CLIENT_ID=your_spotify_client_id
     export SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-    export SPOTIFY_REDIRECT_URI=http://localhost:5000/callback
+    export SPOTIFY_REDIRECT_URI=http://localhost:8080/callback
 
 Start the backend server:
 
